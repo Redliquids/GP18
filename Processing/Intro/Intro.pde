@@ -23,8 +23,7 @@ void draw()
   
   // c Animation Doesn't work right now.
   arc(275, 145, 107, 110, 0.6, 5.8, 3);
-  while(true)
-  {
+  
     println("inside while loop");
     delay(100);
     arc(275, 145, 107, 110, 0.6, 5.8, 3);
@@ -38,5 +37,4 @@ void draw()
     arc(275, 145, 107, 110, 0.2, 6.2, 3);
     delay(100);
     arc(275, 145, 107, 110, 0.1, 6.3, 3);
-  }
 }
