@@ -21,7 +21,7 @@ void draw()
   line(350,110, 400, 110);
   quad(350, 30, 350, 199, 350, 30, 435, 30);
   
-  // c Animation
+  // c Animation Doesn't work right now.
   arc(275, 145, 107, 110, 0.6, 5.8, 3);
   while(true)
   {
