@@ -1,24 +1,41 @@
-  int y = 40;
-  int x = 49;
+int pointsCounter = 0;
+int frame = 0;
 
 void setup()
 {
-  size(1080, 540);
+  size(640, 480);
+  strokeWeight(2);
 }
 
 void draw()
 {
-  strokeWeight(2);
+  sineCurve(1000);
+} 
 
-  for(int i = 0; i < 100; i += 5)
-  {
-    println(i);
-    line(width/2, height/2 , 200, sin(i*0.02)*height/2);
-    // point(i * 0.5, sin(i) * 100);
+// Points is used to set how many points on the sine curve you want. (Makes it longer)
+void sineCurve(int points){
+  
+  while(pointsCounter < points){
+    pointsCounter++;
+    point(frame*2, 240 + sin(frame * 0.04) * 100);
+    frame++;
+    // Move to posX 0 when exiting frame.
+    if(frame > 320){
+        frame = 0;
+        }
+      }
+}
+
+  //for(int i = 0; i < 100; i += 5)
+  //{
+    //println(i);
+     //line(width/2, height/2 , 200, sin(i*0.02)*height/2);
+      // point(i * 0.5, sin(i) * 100);
+
       // we can use the sin value to cakculate Y
       // and use the cos value to calculate X
       // So basically: point(cos, sin); 
-  }
+  //}
   
   
   //line(0, y, x, y);
@@ -36,4 +53,4 @@ void draw()
   // Repetitively Calculate the Sin 
 
   // y = Opposite/Hypotenus of x
-}
+//}
