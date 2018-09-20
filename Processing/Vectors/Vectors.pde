@@ -16,6 +16,10 @@ void setup()
 void draw()
 {
   background(64);
+  
+}
+
+public void circleChaseMouse(){
   ellipse(ellipseX, ellipseY, 20, 20);
   
   if(ellipseX > mouseX){
