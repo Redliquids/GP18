@@ -3,27 +3,47 @@ int frame = 0;
 
 void setup()
 {
-  size(640, 480);
+  size(660, 480);
   strokeWeight(2);
 }
 
 void draw()
 {
-  sineCurve(1000);
+  // remove background to keep chain of dots 
+  //background(255);
+  // sineCurve();
+  sineAndCosCurve();
 } 
 
 // Points is used to set how many points on the sine curve you want. (Makes it longer)
-void sineCurve(int points){
-  
-  while(pointsCounter < points){
-    pointsCounter++;
-    point(frame*2, 240 + sin(frame * 0.04) * 100);
-    frame++;
+void sineCurve()
+{
+  // Each 
+  if(frame % 3 == 0){
+    // I think i need to modify 
+    point(frame*2.1, 240 + sin(frame * 0.04) * 100);
+    println(frame);
+    
     // Move to posX 0 when exiting frame.
-    if(frame > 320){
+    if(frame > 300)
+    {
+      frame = 0;
+    }
+  }
+  frame++;
+}
+// Paints a dot in the sine curve each frame
+void sineAndCosCurve(){
+  if(frame % 5 == 0){
+    point(frame*2, 240 + sin(frame * 0.04) * 100);
+    point(frame*2, 240 + cos(frame * 0.04) * 100);
+    
+    // Move to posX 0 when exiting frame.
+    if(frame > 320)
         frame = 0;
-        }
-      }
+  }
+        frame++;
+        
 }
 
   //for(int i = 0; i < 100; i += 5)
