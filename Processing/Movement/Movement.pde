@@ -1,3 +1,6 @@
+float tpf; // time per frame in seconds.
+float time; 
+
 int posY; // position of ball
 
 int v = 1; // constant velocity
@@ -14,20 +17,24 @@ void setup()
 {
   size(660, 480);
   strokeWeight(2);
+  frameRate(144);
 }
 
-float tpf; // this was called frameTime in the walkthrough. Only one of them is necessary
+posVector = new PVector(width/2, height/2);
+velocityVector = new PVector(0,1);
 
 void draw()
 {
-    long currentTime = millis();
-    tpf = currentTime - currentTime;
-    //tpf = (currentTime - time) * 0.001f; // we want this is seconds -> fraction of a second
+  float currentTime = millis();   tpf = (currentTime - time) * 0.001;
+  // *0.001 is needed to turn value in to x.xxx seconds. Otherwise we get millisec values.
     
   
-  // do your drawing stuff...
-  
+   // do your drawing stuff...
+  bouncyBall();
+
+  time = currentTime;
   println("tpf: " + tpf);
+  println("Ms since start of program: " + time);
 } 
 /*
 You need to apply this to both pos updates and v updates. Ie (pseudo code)
@@ -35,3 +42,8 @@ You need to apply this to both pos updates and v updates. Ie (pseudo code)
 pos = pos + v * tpf
 v = v + a * tpf
 */
+
+public void bouncyBall()
+{
+  ellipse();
+}
