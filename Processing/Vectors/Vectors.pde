@@ -1,5 +1,5 @@
 /// Full disclosure. I took a lot of help/code from Vidar 
-/// and tried to wrap my head around it.
+/// and tried to understand and use it.
 
 int ellipseX = 250;
 int ellipseY = 200;
@@ -32,7 +32,6 @@ void draw()
 
 public void bouncyBall()
 {
-  // Time passed since start of program in ms.
   long currentTime = millis(); 
   tpf = currentTime * 0.001f;
   speed = speed + tpf;
@@ -58,19 +57,19 @@ public void bouncyBall()
   {
   velocityVector.y = - velocityVector.y; 
     velocityVector.y = (velocityVector.y * 0.9f);
-  posVector.y = 0; //making sure the ball doesn't escape through the top of the screen
+  posVector.y = 0; 
   }
   if (posVector.x > width )
   {
     velocityVector.x = - velocityVector.x;
     velocityVector.x = (velocityVector.x*0.9f);
-    posVector.x = width;// making sure that the ball doesn't escape throug right side of the screen.
+    posVector.x = width;
   }
-  else if (posVector.x < 0) // left
+  else if (posVector.x < 0)
   {
   velocityVector.x = - velocityVector.x;
   velocityVector.x = (velocityVector.x * 0.9f);
-  posVector.x = 0; // making sure that the ball doesn't escape throug left side of the screen.
+  posVector.x = 0;
   }
   
     // Constant acceleration code but shorter...
