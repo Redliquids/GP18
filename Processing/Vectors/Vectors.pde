@@ -1,3 +1,6 @@
+/// Full disclosure. I took a lot of help/code from Vidar 
+/// and tried to wrap my head around it.
+
 int ellipseX = 250;
 int ellipseY = 200;
 
@@ -6,71 +9,82 @@ float a = 0.1;
 float tpf;
 float time;
 
-PVector position;
-PVector velocity;
+PVector posVector;
+PVector velocityVector;
 
 int frame = 0;
-
 
 void setup()
 {
   size(1080, 540);
   strokeWeight(1);
   frameRate(144);
- position = new PVector(width/2, height/2);
- velocity = new PVector (random(-1, 1), random(-1, 1));
+  posVector = new PVector(width/2, height/2);
+  velocityVector = new PVector (random(-1, 1), random(-1, 1));
 }
 
 void draw()
 {
   background(64);
   //circleChaseMouse();
-  //bouncyBall();
-  
+  bouncyBall();
+}
+
+public void bouncyBall()
+{
   // Time passed since start of program in ms.
   long currentTime = millis(); 
   tpf = currentTime * 0.001f;
-  speed = speed + a * tpf;
+  speed = speed + tpf;
   
   // println(speed);
   
-  position.y = position.y + (velocity.y * speed) * tpf;
-  position.x = position.x + (velocity.x * speed) * tpf;
+  posVector.y = posVector.y + (velocityVector.y * speed + a) ;
+  posVector.x = posVector.x + (velocityVector.x * speed + a) ;
   
-  ellipse(position.x, position.y, 20, 20);
-  //println("posX: "+position.x);
-  //println("posY: "+position.y);
+  ellipse(posVector.x, posVector.y, 20, 20);
   
-  if (position.x > width || position.x <0){
-      velocity.x = - velocity.x;
+  if (posVector.y > height )
+  {
+    velocityVector.y = - velocityVector.y; // Reverse direction
+    velocityVector.y = (velocityVector.y * 0.9f); // making the ball loose force
+    
+    // posVector.y does manage to get several pixed out of frame. 
+    // Therefore i need to set it to be height of frame after we reverse the movement direction. 
+    // Otherwise the code keeps changing direction. 
+    posVector.y = height; 
+  }
+  else if (posVector.y < 0)
+  {
+  velocityVector.y = - velocityVector.y; 
+    velocityVector.y = (velocityVector.y * 0.9f);
+  posVector.y = 0; //making sure the ball doesn't escape through the top of the screen
+  }
+  if (posVector.x > width )
+  {
+    velocityVector.x = - velocityVector.x;
+    velocityVector.x = (velocityVector.x*0.9f);
+    posVector.x = width;// making sure that the ball doesn't escape throug right side of the screen.
+  }
+  else if (posVector.x < 0) // left
+  {
+  velocityVector.x = - velocityVector.x;
+  velocityVector.x = (velocityVector.x * 0.9f);
+  posVector.x = 0; // making sure that the ball doesn't escape throug left side of the screen.
+  }
+  
+    // Constant acceleration code but shorter...
+    /*
+    if (posVector.x > width || posVector.x <0){
+      velocityVector.x = - velocityVector.x;
+      velocityVector.y = (velocityVector.y * 0.9f);
     }
-  if (position.y > height || position.y <0){
-      velocity.y= -velocity.y;
-    }      
+    if (posVector.y > height || posVector.y <0){
+      velocityVector.y= -velocityVector.y;
+      velocityVector.y = (velocityVector.y * 0.9f);
+    } 
+    */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 public void circleChaseMouse(){
