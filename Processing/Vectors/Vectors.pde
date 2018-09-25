@@ -7,7 +7,7 @@ int ellipseY = 200;
 float speed = 1;
 float a = 0.1;
 float tpf;
-float time;
+//float time;
 
 PVector posVector;
 PVector velocityVector;
@@ -34,6 +34,7 @@ public void bouncyBall()
 {
   long currentTime = millis(); 
   tpf = currentTime * 0.001f;
+  println("tpf: " + tpf);
   speed = speed + tpf;
   
   // println(speed);

@@ -1,49 +1,43 @@
-float tpf; // time per frame in seconds.
-float time; 
+float speed = 1; // constant velocity
+float a = 1; // constant acceleration
+float tpf; // time per frame in seconds. Used for movement.
+float time;
 
-int posY; // position of ball
-
-int v = 1; // constant velocity
-int a = 1; // constant acceleration
-
-//update loop:
-//posY = posY + 1;
-
-// update loop same as before, but:
-
-//v = v + a; // v increases by acceleration
+PVector posVector;
+PVector velocityVector;
 
 void setup()
 {
+  frameRate(144);
   size(660, 480);
   strokeWeight(2);
-  frameRate(144);
+  
+  posVector = new PVector(width/2, height/2);
+  velocityVector = new PVector (random(-1, 1), random(-1, 1));
 }
-
-posVector = new PVector(width/2, height/2);
-velocityVector = new PVector(0,1);
 
 void draw()
 {
-  float currentTime = millis();   tpf = (currentTime - time) * 0.001;
-  // *0.001 is needed to turn value in to x.xxx seconds. Otherwise we get millisec values.
-    
-  
-   // do your drawing stuff...
+  background(64);
+  // The movement doesn't work quite right with fps changes...
   bouncyBall();
-
-  time = currentTime;
-  println("tpf: " + tpf);
-  println("Ms since start of program: " + time);
 } 
-/*
-You need to apply this to both pos updates and v updates. Ie (pseudo code)
-
-pos = pos + v * tpf
-v = v + a * tpf
-*/
 
 public void bouncyBall()
 {
-  ellipse();
+  float currentTime = millis();   
+  tpf = (currentTime - time) * 0.001;
+  speed = speed + tpf;
+  println("speed: " + speed);
+  posVector.x = posVector.x + (velocityVector.x * speed + a);
+  posVector.y = posVector.y + (velocityVector.y * speed + a);
+  
+  //ToDo:
+  // Reverse Velocity when enterint top/bottom of screen.
+  // Make the ball come out from the left of the screen when it exits on the right.
+  // Fix fps based movement.
+  
+  //println();
+  ellipse(posVector.x, posVector.y, 20, 20);
+  time = currentTime;
 }
