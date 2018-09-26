@@ -28,13 +28,37 @@ public void bouncyBall()
   float currentTime = millis();   
   tpf = (currentTime - time) * 0.001;
   speed = speed + tpf;
-  println("speed: " + speed);
+  // println("speed: " + speed);
   posVector.x = posVector.x + (velocityVector.x * speed + a);
   posVector.y = posVector.y + (velocityVector.y * speed + a);
   
+  //println("posVector.y: " + posVector.y);
+  if (posVector.y > height) {
+    velocityVector.y =  - velocityVector.y; // Reverse direction
+    velocityVector.y = (velocityVector.y * 0.7f); // making the ball loose force
+    
+    // posVector.y does manage to get several pixed out of frame. 
+    // Therefore i need to set it to be height of frame after we reverse the movement direction. 
+    // Otherwise the code keeps changing direction. 
+    posVector.y = height; 
+  }
+  else if (posVector.y < 0) {
+    // reverse velocityVector
+    velocityVector.y =- velocityVector.y;
+    velocityVector.y = (velocityVector.y * 0.7f);
+    posVector.y = 0;
+  }
+
+  if(posVector.x > width){
+    // set posVector.x = 0
+    posVector.x = 0;
+  }
+  else if (posVector.x < 0){
+    // set posVector.x = width
+    posVector.x = width;
+  }
+  
   //ToDo:
-  // Reverse Velocity when enterint top/bottom of screen.
-  // Make the ball come out from the left of the screen when it exits on the right.
   // Fix fps based movement.
   
   //println();
